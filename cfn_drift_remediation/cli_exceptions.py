@@ -20,3 +20,7 @@ class TestValueMismatchError(Exception):
 
 class DriftTypeNotImplementedError(NotImplementedError):
     pass
+
+
+class CloudControlNotSupportedError(Exception):
+    pass
