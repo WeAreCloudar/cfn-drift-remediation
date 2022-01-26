@@ -15,9 +15,6 @@ pip install cfn-drift-remediation
 ```shell
 # Default usage
 cfn-drift-remediation stack_name
-# Updating the CloudFormation Schemas used while constructing the remediation to the latest version
-# before running the remediation
-cfn-drift-remediation --update-schemas stack_name
 # Using a different profile
 AWS_DEFAULT_PROFILE=profile-name cfn-drift-remediation stack_name
 # Using a third party tool like aws-vault

@@ -8,7 +8,6 @@ authors = ["Ben Bridts"]
 python = "^3.9"
 boto3 = "^1.20.43"
 jsonpointer = "^2.2"
-fastjsonschema = "^2.15.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

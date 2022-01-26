@@ -8,7 +8,6 @@ import boto3
 
 from .aws_error_utils import errors
 from .cli_exceptions import TestValueMismatchError, DriftTypeNotImplementedError
-from .schema_tools import get_schemas
 from .utils import DesiredState, get_desired_states, create_patch
 
 
@@ -18,14 +17,10 @@ def run():
         "stack",
         help="CloudFormation Stack that has (detected) drift",
     )
-    parser.add_argument('--update-schemas', action='store_true')
 
     args = parser.parse_args()
     # Use the default session
     session = boto3.Session()
-
-    # Download the latest schemas
-    get_schemas(force_update=args.update_schemas, region=session.region_name)
 
     for state in get_desired_state(session, args.stack):
         try:
