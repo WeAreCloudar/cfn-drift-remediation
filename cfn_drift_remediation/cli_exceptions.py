@@ -11,7 +11,9 @@ class TestValueMismatchError(Exception):
         return dedent(
             f"""
         The {self.state.type} {self.state.id} is not in the expected state.
-        Maybe you have to rerun drift detection, or the type of the values may be a mismatch.
+        Possible things problems:
+        - Drift detection is not up to date (solution: rerun drift deteciont)
+        - Cloud Control might see a different order in a list (currently not supported)
         
         Patch document: {self.patch}
         """
