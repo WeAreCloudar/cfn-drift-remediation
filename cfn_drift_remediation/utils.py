@@ -33,22 +33,34 @@ def get_desired_states(stack_resource_drifts: List) -> Iterable["DesiredState"]:
 def create_patch(differences: List["Difference"]) -> List[Mapping]:
     ops = []
     for diff in differences:
-        if diff.DifferenceType != "NOT_EQUAL":
-            raise DriftTypeNotImplementedError("only NOT_EQUAL drift is currently supported")
-        ops.extend(
-            [
-                {
-                    "op": "test",
-                    "path": diff.PropertyPath,
-                    "value": diff.ActualValue,
-                },
-                {
-                    "op": "replace",
-                    "path": diff.PropertyPath,
-                    "value": diff.ExpectedValue,
-                },
-            ]
-        )
+        test_action = {"op": "test", "path": diff.PropertyPath, "value": diff.ActualValue}
+
+        if diff.DifferenceType == "NOT_EQUAL":
+            ops.extend(
+                [
+                    test_action,
+                    {"op": "replace", "path": diff.PropertyPath, "value": diff.ExpectedValue},
+                ]
+            )
+        elif diff.DifferenceType == "REMOVE":
+            ops.extend(
+                [
+                    # We cannot test for non-existinse.
+                    # This means that things might behave in unexpected ways if the Property was created
+                    # after the drift was detected (might add to array instead of creating a new one)
+                    {"op": "add", "path": diff.PropertyPath, "value": diff.ExpectedValue},
+                ]
+            )
+        elif diff.DifferenceType == "ADD":
+            ops.extend(
+                [
+                    test_action,
+                    {"op": "remove", "path": diff.PropertyPath},
+                ]
+            )
+        else:
+            raise DriftTypeNotImplementedError(f"drift of type {diff.DifferenceType} is currently not supported")
+
     return ops
 
 
