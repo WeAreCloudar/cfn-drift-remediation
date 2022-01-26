@@ -23,7 +23,11 @@ aws-vault exec profile-name -- cfn-drift-remediation stack_name
 
 ## How this works
 This tool will read the existing drift of a stack, iterate through the drifted resources and construct a patch document to change the actual (detected) property values to the expected (stack) values.
-These patch documents are executed with CloudControl API. This does mean that if the drifted resources do not support Cloud Control API, the remediation will fail.
+
+## Caveats
+- Changes are done with CloudControl API. This does mean that if the drifted resources do not support Cloud Control API, they will be skipped.
+- For some resources the order in a list does not matter, this might lead to a failure to apply changes, because Cloud Control API will assume the resource is not in the drifted state it expects.
+- We do not support creating resources that were completely deleted from the stack. The drift detection api does not return enough information to construct the replacement resource.
 
 ## Development
 We use poetry to manage this project
