@@ -41,9 +41,8 @@ We use poetry to manage this project
 2. Edit cfn_drift_remediation/__init_.py to update the version number
 3. Commit the version number bump
 4. Run tests `poetry run pytest ` (you might have to install dependencies with `poetry install --dev`)
-5. Run `poetry publish --build`
-6. Push to GitHub
-7. Create a new release in GitHub
+5. Tag the commit with the version number `git tag x.y.z`
+6. Push to GitHub, this will create a new release in pypi and GitHub
 
 
 ### Using poetry in Visual Studio Code
