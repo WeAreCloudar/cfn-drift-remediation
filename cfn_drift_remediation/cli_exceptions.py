@@ -14,7 +14,7 @@ class TestValueMismatchError(Exception):
         Possible things problems:
         - Drift detection is not up to date (solution: rerun drift deteciont)
         - Cloud Control might see a different order in a list (currently not supported)
-        
+
         Patch document: {self.patch}
         """
         )
