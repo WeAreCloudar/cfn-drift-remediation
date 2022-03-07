@@ -42,7 +42,7 @@ We use poetry to manage this project
 3. Commit the version number bump
 4. Run tests `poetry run pytest ` (you might have to install dependencies with `poetry install --dev`)
 5. Tag the commit with the version number `git tag x.y.z`
-6. Push to GitHub, this will create a new release in pypi and GitHub
+6. Push to GitHub with `git push --tags`, this will create a new release in pypi and GitHub
 
 
 ### Using poetry in Visual Studio Code
