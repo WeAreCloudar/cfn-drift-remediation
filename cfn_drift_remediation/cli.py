@@ -68,7 +68,11 @@ def set_state(session: boto3.Session, state: "DesiredState") -> None:
     cc = session.client("cloudcontrol")
     patch = json.dumps(create_patch(state.differences))
     try:
-        request_token = cc.update_resource(TypeName=state.type, Identifier=state.id, PatchDocument=patch,)[
+        request_token = cc.update_resource(
+            TypeName=state.type,
+            Identifier=state.id,
+            PatchDocument=patch,
+        )[
             "ProgressEvent"
         ]["RequestToken"]
     except cc.exceptions.UnsupportedActionException as e:
